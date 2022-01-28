@@ -14,3 +14,9 @@
 .modal__input {
   margin-bottom: 0.5rem !important;
 }
+
+@media (max-width: 470px) {
+  .modal {
+    width: 250px;
+  }
+}
