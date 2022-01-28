@@ -1,0 +1,41 @@
+.reco-container {
+  flex: 1;
+  margin-top: 1rem;
+}
+
+.reco-container .chat-btn {
+  border: 1px solid #89898a;
+  padding: 0.25rem 0;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.reco-content {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.reco-image img {
+  width: 16rem;
+}
+.reco-details {
+  margin-bottom: 0.25rem;
+  width: 100% !important;
+}
+
+.reco-details p {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.reco-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.views {
+  width: max-content !important;
+}

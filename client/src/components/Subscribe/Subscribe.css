@@ -1,0 +1,23 @@
+.subscribe-btn {
+  display: flex;
+  justify-content: flex-end;
+  height: fit-content;
+  cursor: pointer;
+}
+
+.subscribe-btn {
+  padding: 0.5rem;
+  background-color: #ff0000;
+  color: #fff;
+  border: 1px solid #ff0000;
+}
+
+.subscribed {
+  background-color: gray;
+  border: 1px solid gray;
+}
+
+.not-subscribed {
+  background-color: #ff0000;
+  border: 1px solid #ff0000;
+}

@@ -1,0 +1,16 @@
+.sideNav {
+  margin-right: 0.5rem;
+}
+
+.drawer {
+  width: 250px;
+}
+
+.drawer__heading {
+  display: flex;
+  align-items: center;
+}
+
+.drawer__icon {
+  margin-right: 5px;
+}
