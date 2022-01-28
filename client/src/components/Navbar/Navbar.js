@@ -52,6 +52,7 @@ function NavBar() {
     if (res.status === 200) {
       navigate("/");
       localStorage.removeItem("token");
+      localStorage.removeItem('userId')
       setUser(false);
       toast.success("Logout success!");
     } else {
