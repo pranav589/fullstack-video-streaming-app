@@ -72,4 +72,27 @@ router.get("/logout", auth, (req, res) => {
   );
 });
 
+router.post("/singleUser", (req, res) => {
+  const { name } = req.body;
+  User.findOne({ name }).then((data) => {
+    if (!data) {
+      return res
+        .status(400)
+        .json({ success: false, error: true, msg: "User not found!" });
+    }
+    return res.json({ data });
+  });
+});
+
+router.post("/searchUser", (req, res) => {
+  const { searchTerm } = req.body;
+
+  User.find({ name: searchTerm }, (err, data) => {
+    if (err) {
+      return res.status(400).json({ success: false, error: true, err });
+    }
+    return res.json({ data });
+  });
+});
+
 module.exports = router;

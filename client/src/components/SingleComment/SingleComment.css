@@ -1,0 +1,30 @@
+.singleComment__user {
+  margin-bottom: 1rem;
+}
+
+.singleComment__username {
+  display: flex;
+  align-items: center;
+}
+
+.singleComment__username .writerName {
+  margin-left: 1rem !important;
+  font-size: 1rem;
+}
+
+.singleComment__user > p {
+  margin-left: 3.5rem;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.singleComment__userInteract {
+  display: flex;
+  align-items: center;
+}
+
+.replyTo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

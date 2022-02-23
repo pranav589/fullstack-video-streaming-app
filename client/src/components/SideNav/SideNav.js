@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import StreamIcon from "@mui/icons-material/Stream";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 
 import "./SideNav.css";
 
@@ -55,6 +56,12 @@ export default function SwipeableTemporaryDrawer() {
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary={"Home"} />
+            </ListItem>
+            <ListItem button onClick={() => navigate("/trendingVideos")}>
+              <ListItemIcon>
+                <TrendingUpIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Trending"} />
             </ListItem>
             <ListItem button onClick={() => navigate("/subscriptions")}>
               <ListItemIcon>

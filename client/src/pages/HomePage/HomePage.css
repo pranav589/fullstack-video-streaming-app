@@ -67,6 +67,12 @@ span {
   font-size: 0.95rem;
 }
 
+.videoViews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media (max-width: 615px) {
   .video {
     margin-right: 0 !important;

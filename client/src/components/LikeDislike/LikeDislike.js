@@ -12,7 +12,7 @@ import { IconButton } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import "./LikeDislike.css";
 
-function LikeDisLike({ video }) {
+function LikeDisLike({ video, commentId }) {
   const { user, userData } = useAuth();
   const [likes, setLikes] = useState(0);
   const [disLikes, setDisLikes] = useState(0);
@@ -23,6 +23,8 @@ function LikeDisLike({ video }) {
 
   if (video) {
     variables = { videoId: video._id, userId: userId };
+  } else {
+    variables = { commentId: commentId, userId: userId };
   }
 
   useEffect(() => {

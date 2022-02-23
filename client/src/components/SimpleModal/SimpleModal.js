@@ -15,21 +15,9 @@ export default function SimpleModal({ isShowModal, setIsShowModal }) {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await axios.post("/api/video/searchVideo", {
-        inputSearch,
-      });
-      if (res.data.success) {
-        navigate(`/video/${res.data.video._id}`);
-        setInputSearch("");
-      } else {
-        toast.error("Searched video not found!");
-      }
-    } catch (error) {
-      toast.error("Searched video not found!");
-    }
-    setIsShowModal(false);
+    setInputSearch("");
+    navigate(`/search/${inputSearch}`);
+    handleClose();
   };
 
   return (
@@ -53,7 +41,7 @@ export default function SimpleModal({ isShowModal, setIsShowModal }) {
             fullWidth
             className="modal__input"
             value={inputSearch}
-            onChange={(e) => setInputSearch(e.target.value)}
+            onChange={(e) => setInputSearch(e.target.value.toLowerCase())}
           />
           <Button
             variant="contained"

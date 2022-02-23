@@ -223,7 +223,7 @@ function UploadPage() {
             label="Video Title"
             name="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value.toLowerCase())}
           />
 
           <TextField

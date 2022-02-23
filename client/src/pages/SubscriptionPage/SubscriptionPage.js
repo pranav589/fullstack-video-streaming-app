@@ -2,23 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
-
+import Loader from "../../components/Loader/Loader";
 import "../HomePage/HomePage.css";
 import useAuth from "../../hooks/useAuth";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function SubscriptionPage() {
   const { user } = useAuth();
   const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const variable = {
     userFrom: localStorage.getItem("userId"),
   };
 
   useEffect(() => {
+    setIsLoading(true);
     axios.post("/api/video/getSubscriptionVideos", variable).then((res) => {
       if (res.data.success) {
         console.log(res.data);
         setVideos(res.data.videos);
+        setIsLoading(false);
       } else {
         alert("Failed to fetch videos");
       }
@@ -37,12 +41,20 @@ function SubscriptionPage() {
         <div className="title">
           <div>
             <p>{video.title}</p>
-            <p>{video.writer.name}</p>
+            <span>{video.writer.name}</span>
           </div>
+        </div>
+        <div className="videoViews">
+          <VisibilityIcon color="primary" />
+          <span>{video.views}</span>
         </div>
       </div>
     </Link>
   ));
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className="videos">

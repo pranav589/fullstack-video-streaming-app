@@ -2,7 +2,8 @@ import React from "react";
 import LikeDisLike from "../LikeDislike/LikeDislike";
 import Subscribe from "../Subscribe/Subscribe";
 import "./VideoPlayer.css";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function VideoPlayer({ video }) {
   return (
@@ -17,8 +18,16 @@ function VideoPlayer({ video }) {
       </div>
       <div className="video-data">
         <p className="video__title">{video.title}</p>
+        <div className="interactions">
+          <div className="views">
+            <IconButton>
+              <VisibilityIcon fontSize="large" color="primary" />
+            </IconButton>
+            <span>{video.views} </span>
+          </div>
 
-        <LikeDisLike video={video} />
+          <LikeDisLike video={video} />
+        </div>
       </div>
 
       <hr className="line-break" />

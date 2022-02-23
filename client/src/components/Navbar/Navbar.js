@@ -18,7 +18,7 @@ import Search from "@mui/icons-material/Search";
 import SimpleModal from "../SimpleModal/SimpleModal";
 import LoginIcon from "@mui/icons-material/Login";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
@@ -52,7 +52,7 @@ function NavBar() {
     if (res.status === 200) {
       navigate("/");
       localStorage.removeItem("token");
-      localStorage.removeItem('userId')
+      localStorage.removeItem("userId");
       setUser(false);
       toast.success("Logout success!");
     } else {
@@ -62,20 +62,7 @@ function NavBar() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await axios.post("/api/video/searchVideo", {
-        inputSearch,
-      });
-      if (res.data.success) {
-        navigate(`/video/${res.data.video._id}`);
-        setInputSearch("");
-      } else {
-        toast.error("Searched video not found!");
-      }
-    } catch (error) {
-      toast.error("Searched video not found!");
-    }
+    navigate(`/search/${inputSearch}`);
   };
 
   return (
@@ -103,11 +90,13 @@ function NavBar() {
                 placeholder="Search"
                 className="search-input"
                 value={inputSearch}
-                onChange={(e) => setInputSearch(e.target.value)}
+                onChange={(e) => setInputSearch(e.target.value.toLowerCase())}
               />
-              <IconButton style={{ width: 50 }}>
-                <SearchIcon />
-              </IconButton>
+              <Link to={`/search/${inputSearch}`}>
+                <IconButton style={{ width: 50 }}>
+                  <SearchIcon />
+                </IconButton>
+              </Link>
             </form>
           </div>
 

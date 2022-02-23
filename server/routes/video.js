@@ -1,46 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
+
 const { User } = require("../models/User");
 const { Video } = require("../models/Video");
 
 const { auth } = require("../middleware/auth");
 const { Subscriber } = require("../models/Subscriber");
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}_${file.originalname}`);
-  },
-  fileFilter: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    if (ext !== ".mp4") {
-      return cb(res.status(400).end("only mp4 file is allowed"), false);
-    }
-    cb(null, true);
-  },
-});
-
-var upload = multer({ storage: storage }).single("file");
-
-//=================================
-//             User
-//=================================
-
-router.post("/uploadFiles", (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      return res.json({ success: false, err });
-    }
-    return res.json({
-      success: true,
-      filepath: res.req.file.path,
-      fileName: res.req.file.filename,
-    });
-  });
-});
 
 router.post("/uploadVideo", (req, res) => {
   const video = new Video(req.body);
@@ -80,6 +45,7 @@ router.post("/getSubscriptionVideos", (req, res) => {
     //fetch the videos that belongs to my subscription
     Video.find({ writer: { $in: subscribedUser } })
       .populate("writer")
+      .sort({ _id: -1 })
       .exec((err, videos) => {
         if (err) return res.status(400).json({ success: false, err });
         res.json({ success: true, videos });
@@ -87,13 +53,12 @@ router.post("/getSubscriptionVideos", (req, res) => {
   });
 });
 
-router.post("/searchVideo", (req, res) => {
-  console.log(req.body);
-  Video.findOne({ title: req.body.inputSearch })
+router.post("/search", (req, res) => {
+  Video.find({ title: req.body.searchTerm })
     .populate("writer")
-    .exec((err, video) => {
+    .exec((err, data) => {
       if (err) return res.status(400).json({ success: false, err });
-      res.status(200).json({ success: true, video });
+      res.status(200).json({ success: true, data });
     });
 });
 
@@ -105,6 +70,7 @@ router.post("/getRecommendedVideos", (req, res) => {
       console.log(err);
     }
     Video.find({ _id: { $ne: req.body.videoId } })
+      .sort({ views: -1 })
       .limit(5)
       .populate("writer")
       .exec((err, videos) => {
@@ -115,6 +81,32 @@ router.post("/getRecommendedVideos", (req, res) => {
         return res.status(200).json({ success: true, videos });
       });
   });
+});
+
+router.post("/increaseView", (req, res) => {
+  const { videoId } = req.body;
+  console.log(videoId);
+  const updateViews = () => {
+    Video.findOne({ _id: videoId }).then((data) => {
+      Video.findByIdAndUpdate({ _id: videoId }, { views: data.views + 1 }).then(
+        (v) => {
+          return res.json({ views: v });
+        }
+      );
+    });
+  };
+  updateViews();
+});
+
+router.post("/getTrendingVideos", (req, res) => {
+  Video.find()
+    .sort({ views: -1 })
+    .populate("writer")
+    .exec((err, videos) => {
+      if (err) return res.status(400).json({ success: false, err });
+
+      return res.json({ success: true, videos });
+    });
 });
 
 module.exports = router;

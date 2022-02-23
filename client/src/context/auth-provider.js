@@ -7,20 +7,40 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(false);
   const [userData, setUserData] = useState({});
   const token = localStorage.getItem("token");
+
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+
     const checkLogin = async () => {
-      if (token) {
-        const verified = await axios.get("/api/users/auth", {
-          headers: { Authorization: token },
-        });
-        if (verified.data) setUser(true);
-        if (verified.data) setUserData(verified.data);
-        if (!verified.data) return localStorage.clear();
-      } else {
-        setUser(false);
+      try {
+        if (token) {
+          const verified = await axios.get(
+            "/api/users/auth",
+            { cancelToken: source.token },
+            {
+              headers: { Authorization: token },
+            }
+          );
+          if (verified.data) setUser(true);
+          if (verified.data) setUserData(verified.data);
+          if (!verified.data) return localStorage.clear();
+        } else {
+          setUser(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("cancelled");
+        } else {
+          throw error;
+        }
       }
     };
+
     checkLogin();
+    return () => {
+      source.cancel();
+    };
   }, [token]);
 
   return (
