@@ -45,7 +45,7 @@ function DetailVideoPage() {
       if (res.data.success) {
         setCommentLists(res.data.comments);
       } else {
-        toast.error("Failed to load video info!!");
+        console.log("failed to fetch");
       }
     });
   }, []);
