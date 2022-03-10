@@ -24,6 +24,7 @@
 
 .header__icons {
   margin-left: auto;
+  display: flex;
 }
 
 .header__title {

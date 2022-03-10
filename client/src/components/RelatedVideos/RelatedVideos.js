@@ -7,6 +7,10 @@ function RelatedVideos() {
   const params = useParams();
   const [sideVideos, setSideVideos] = useState([]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [params]);
+
   const fetchVideos = async () => {
     try {
       const res = await axios.post("/api/video/getRecommendedVideos", {

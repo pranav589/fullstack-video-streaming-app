@@ -38,8 +38,8 @@ export default function RegisterPage() {
         });
 
         if (res.data.success) {
-          toast.success("Account Registered!");
-          navigate("/");
+          toast.success("Account Registered! Login Now!");
+          navigate("/login");
         }
       } catch (err) {
         toast.error(err.response.data.message);

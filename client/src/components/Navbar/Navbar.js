@@ -64,6 +64,25 @@ function NavBar() {
     e.preventDefault();
     navigate(`/search/${inputSearch}`);
   };
+  const handleGuestLogin = async () => {
+    try {
+      const res = await axios.post("/api/users/login", {
+        email: "guest@gmail.com",
+        password: "password",
+      });
+
+      if (res.data.loginSuccess) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.userId);
+        setUser(true);
+
+        toast.success("Welcome Guest!");
+        navigate("/");
+      }
+    } catch (err) {
+      toast.error(err.response.data.message);
+    }
+  };
 
   return (
     <div style={{ flexGrow: 1 }}>
@@ -101,6 +120,15 @@ function NavBar() {
           </div>
 
           <div className="header__icons">
+            {!user ? (
+              <MenuItem onClick={handleGuestLogin}>
+                <Typography>Guest Login</Typography>
+              </MenuItem>
+            ) : (
+              <MenuItem onClick={handleLogout}>
+                <Typography>Guest Logout</Typography>
+              </MenuItem>
+            )}
             <IconButton
               className="header__icon search"
               onClick={() => setIsShowModal(true)}
@@ -161,7 +189,7 @@ function NavBar() {
                 <ListItemIcon>
                   <AddCircleOutlineIcon />
                 </ListItemIcon>
-                {userData?.name}
+                Hi, {userData?.name}
               </MenuItem>
 
               <MenuItem onClick={handleLogout}>
