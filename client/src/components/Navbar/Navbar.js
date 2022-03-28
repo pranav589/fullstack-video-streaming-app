@@ -14,8 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import Search from "@mui/icons-material/Search";
-import SimpleModal from "../SimpleModal/SimpleModal";
+
 import LoginIcon from "@mui/icons-material/Login";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,9 +28,8 @@ function NavBar() {
   const { user, setUser, userData } = useAuth();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [inputSearch, setInputSearch] = useState("");
 
   const open = Boolean(anchorEl);
 
@@ -60,10 +58,6 @@ function NavBar() {
     }
   };
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    navigate(`/search/${inputSearch}`);
-  };
   const handleGuestLogin = async () => {
     try {
       const res = await axios.post("/api/users/login", {
@@ -102,23 +96,6 @@ function NavBar() {
             Stream Tube
           </Typography>
 
-          <div className="header__search">
-            <form action="" onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Search"
-                className="search-input"
-                value={inputSearch}
-                onChange={(e) => setInputSearch(e.target.value.toLowerCase())}
-              />
-              <Link to={`/search/${inputSearch}`}>
-                <IconButton style={{ width: 50 }}>
-                  <SearchIcon />
-                </IconButton>
-              </Link>
-            </form>
-          </div>
-
           <div className="header__icons">
             {!user ? (
               <MenuItem onClick={handleGuestLogin}>
@@ -129,12 +106,7 @@ function NavBar() {
                 <Typography>Guest Logout</Typography>
               </MenuItem>
             )}
-            <IconButton
-              className="header__icon search"
-              onClick={() => setIsShowModal(true)}
-            >
-              <Search />
-            </IconButton>
+
             <IconButton onClick={() => navigate("/video/upload")}>
               <VideocamIcon />
             </IconButton>
@@ -143,10 +115,6 @@ function NavBar() {
             </IconButton>
           </div>
         </Toolbar>
-        <SimpleModal
-          isShowModal={isShowModal}
-          setIsShowModal={setIsShowModal}
-        />
 
         <Menu
           anchorEl={anchorEl}

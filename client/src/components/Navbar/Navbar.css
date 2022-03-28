@@ -47,6 +47,12 @@
   .dropdown {
     margin-left: -5px;
   }
+  .header__titleIcon {
+    display: none !important;
+  }
+  .header__title {
+    font-size: 0.9rem !important;
+  }
 }
 
 @media (max-width: 780px) {

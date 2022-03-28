@@ -8,7 +8,7 @@ import DetailVideoPage from "./pages/DetailVideoPage/DetailVideoPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import SearchPage from "./pages/SearchPage/SearchPage";
+
 import SubscriptionPage from "./pages/SubscriptionPage/SubscriptionPage";
 import TrendingVideoPage from "./pages/TrendingVideoPage/TrendingVideoPage";
 import UploadVideoPage from "./pages/UploadPage/UploadPage";
@@ -43,7 +43,6 @@ function App() {
           />
           <Route path="/video/:videoId" element={<DetailVideoPage />} />
           <Route path="/trendingVideos" element={<TrendingVideoPage />} />
-          <Route path="/search/:searchTerm" element={<SearchPage />} />
         </Routes>
       </div>
       <ToastContainer />
