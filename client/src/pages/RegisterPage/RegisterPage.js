@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import moment from "moment";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,8 +16,10 @@ import "./RegisterPage.css";
 
 import axios from "axios";
 import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
 
 export default function RegisterPage() {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -49,6 +51,7 @@ export default function RegisterPage() {
 
   return (
     <>
+      {token && <Navigate to="/" replace={true} />}
       <Grid container component="main" className="loginPage">
         <CssBaseline />
         <Grid

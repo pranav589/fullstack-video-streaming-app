@@ -14,6 +14,7 @@ function VideoPlayer({ video }) {
           controls
           className="video-video"
           height="315"
+          autoPlay
         ></video>
       </div>
       <div className="video-data">

@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/Navbar/Navbar";
@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import SubscriptionPage from "./pages/SubscriptionPage/SubscriptionPage";
 import TrendingVideoPage from "./pages/TrendingVideoPage/TrendingVideoPage";
 import UploadVideoPage from "./pages/UploadPage/UploadPage";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   const { user, userData } = useAuth();
@@ -28,19 +29,17 @@ function App() {
       >
         <Routes>
           <Route index element={<HomePage />} />
-          <Route path="/login" element={!user ? <LoginPage /> : <HomePage />} />
-          <Route
-            path="/register"
-            element={!user ? <RegisterPage /> : <HomePage />}
-          />
-          <Route
-            path="/video/upload"
-            element={user ? <UploadVideoPage /> : <LoginPage />}
-          />
-          <Route
-            path="/subscriptions"
-            element={<SubscriptionPage userData={userData} />}
-          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          {/* Protected */}
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/video/upload" element={<UploadVideoPage />} />
+            <Route
+              path="/subscriptions"
+              element={<SubscriptionPage userData={userData} />}
+            />
+          </Route>
+
           <Route path="/video/:videoId" element={<DetailVideoPage />} />
           <Route path="/trendingVideos" element={<TrendingVideoPage />} />
         </Routes>

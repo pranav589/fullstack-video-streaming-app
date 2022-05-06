@@ -147,7 +147,10 @@ function UploadPage() {
           className="drop-container"
         >
           <div className="dropzone-first">
-            <Dropzone onDrop={(e) => onDropVideo(e)}>
+            <Dropzone
+              onDrop={(e) => onDropVideo(e)}
+              accept=".mkv,.mp4,.mov,.wmv,.flv,.avi"
+            >
               {({ getRootProps, getInputProps }) => (
                 <div className="drop-box" {...getRootProps()}>
                   <input {...getInputProps()} />
@@ -181,7 +184,10 @@ function UploadPage() {
           </div>
 
           <div>
-            <Dropzone onDrop={(e) => onDropThumbnail(e)}>
+            <Dropzone
+              onDrop={(e) => onDropThumbnail(e)}
+              accept="image/jpeg,image/png,image/jpg"
+            >
               {({ getRootProps, getInputProps }) => (
                 <div className="drop-box" {...getRootProps()}>
                   <input {...getInputProps()} />
@@ -223,7 +229,7 @@ function UploadPage() {
             label="Video Title"
             name="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value.toLowerCase())}
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <TextField

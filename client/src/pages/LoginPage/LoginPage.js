@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 
 export default function LoginPage() {
+  const token = localStorage.getItem("token");
   const { user, setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,6 +46,7 @@ export default function LoginPage() {
 
   return (
     <>
+      {token && <Navigate to="/" replace={true} />}
       <Grid container component="main" className="loginPage">
         <CssBaseline />
         <Grid
