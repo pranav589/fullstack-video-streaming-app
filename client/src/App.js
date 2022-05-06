@@ -28,8 +28,8 @@ function App() {
         }}
       >
         <Switch>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/register" exact component={RegisterPage} />
 
           {/* Private Routes */}
           <PrivateRoute
@@ -43,8 +43,8 @@ function App() {
             exact
           />
 
-          <Route path="/video/:videoId" component={DetailVideoPage} />
-          <Route path="/trendingVideos" component={TrendingVideoPage} />
+          <Route path="/video/:videoId" exact component={DetailVideoPage} />
+          <Route path="/trendingVideos" exact component={TrendingVideoPage} />
           <Route path="/" exact component={HomePage} />
         </Switch>
       </div>
