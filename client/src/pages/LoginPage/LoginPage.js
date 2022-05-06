@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, Navigate } from "react-router-dom";
+import {
+  Link,
+  useHistory,
+  useNavigate,
+  Navigate,
+  Redirect,
+} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,7 +27,7 @@ export default function LoginPage() {
   const { user, setUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,7 +43,7 @@ export default function LoginPage() {
         setUser(true);
 
         toast.success("Welcome!");
-        navigate("/");
+        history.push("/");
       }
     } catch (err) {
       toast.error(err.response.data.message);
@@ -46,7 +52,7 @@ export default function LoginPage() {
 
   return (
     <>
-      {token && <Navigate to="/" replace={true} />}
+      {token && <Redirect to="/" replace={true} />}
       <Grid container component="main" className="loginPage">
         <CssBaseline />
         <Grid

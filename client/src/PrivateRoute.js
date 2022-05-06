@@ -1,12 +1,16 @@
 import React from "react";
-import { Navigate, Outlet, Route, useLocation } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
-export default function PrivateRoute({ path, element }) {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   const token = localStorage.getItem("token");
-  const location = useLocation();
-  return token ? (
-    <Route path={path} element={element} />
-  ) : (
-    <Navigate state={{ from: location.pathname }} to="/login" />
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        token ? <Component {...props} /> : <Redirect to="/login" />
+      }
+    />
   );
-}
+};
+
+export default PrivateRoute;

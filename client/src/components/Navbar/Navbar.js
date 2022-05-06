@@ -17,7 +17,7 @@ import Logout from "@mui/icons-material/Logout";
 
 import LoginIcon from "@mui/icons-material/Login";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useAuth from "../../hooks/useAuth";
@@ -26,7 +26,7 @@ import SideNav from "../SideNav/SideNav";
 
 function NavBar() {
   const { user, setUser, userData } = useAuth();
-  const navigate = useNavigate();
+  const history = useHistory();
   const [visible, setVisible] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -48,7 +48,7 @@ function NavBar() {
   const handleLogout = async () => {
     const res = await axios.get("/api/users/logout");
     if (res.status === 200) {
-      navigate("/");
+      history.push("/");
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       setUser(false);
@@ -71,7 +71,7 @@ function NavBar() {
         setUser(true);
 
         toast.success("Welcome Guest!");
-        navigate("/");
+        history.push("/");
       }
     } catch (err) {
       toast.error(err.response.data.message);
@@ -91,7 +91,7 @@ function NavBar() {
           <Typography
             variant="h6"
             className="header__title"
-            onClick={() => navigate("/")}
+            onClick={() => history.push("/")}
           >
             Stream Tube
           </Typography>
@@ -107,7 +107,7 @@ function NavBar() {
               </MenuItem>
             )}
 
-            <IconButton onClick={() => navigate("/video/upload")}>
+            <IconButton onClick={() => history.push("/video/upload")}>
               <VideocamIcon />
             </IconButton>
             <IconButton onClick={handleClick}>
@@ -169,13 +169,13 @@ function NavBar() {
             </div>
           ) : (
             <div>
-              <MenuItem onClick={() => navigate("/login")}>
+              <MenuItem onClick={() => history.push("/login")}>
                 <ListItemIcon>
                   <LoginIcon />
                 </ListItemIcon>
                 Login
               </MenuItem>
-              <MenuItem onClick={() => navigate("/register")}>
+              <MenuItem onClick={() => history.push("/register")}>
                 <ListItemIcon>
                   <AddCircleOutlineIcon />
                 </ListItemIcon>

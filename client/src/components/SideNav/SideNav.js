@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import List from "@mui/material/List";
@@ -17,7 +17,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./SideNav.css";
 
 export default function SwipeableTemporaryDrawer() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
 
   const onClose = () => {
@@ -51,19 +51,19 @@ export default function SwipeableTemporaryDrawer() {
           </Box>
           <Divider />
           <List>
-            <ListItem button onClick={() => navigate("/")}>
+            <ListItem button onClick={() => history.push("/")}>
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary={"Home"} />
             </ListItem>
-            <ListItem button onClick={() => navigate("/trendingVideos")}>
+            <ListItem button onClick={() => history.push("/trendingVideos")}>
               <ListItemIcon>
                 <TrendingUpIcon />
               </ListItemIcon>
               <ListItemText primary={"Trending"} />
             </ListItem>
-            <ListItem button onClick={() => navigate("/subscriptions")}>
+            <ListItem button onClick={() => history.push("/subscriptions")}>
               <ListItemIcon>
                 <SubscriptionsIcon />
               </ListItemIcon>

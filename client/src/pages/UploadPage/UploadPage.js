@@ -10,10 +10,10 @@ import Dropzone from "react-dropzone";
 import "./UploadPage.css";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function UploadPage() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { user, userData } = useAuth();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -129,7 +129,7 @@ function UploadPage() {
     axios.post("/api/video/uploadVideo", data).then((res) => {
       if (res.data.success) {
         toast.success("Video uploaded!");
-        navigate("/");
+        history.push("/");
       } else {
         toast.error("Failed to upload");
       }

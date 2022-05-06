@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, Redirect, useHistory } from "react-router-dom";
 import moment from "moment";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -20,7 +20,7 @@ import useAuth from "../../hooks/useAuth";
 
 export default function RegisterPage() {
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  const history = useHistory();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +41,7 @@ export default function RegisterPage() {
 
         if (res.data.success) {
           toast.success("Account Registered! Login Now!");
-          navigate("/login");
+          history.push("/login");
         }
       } catch (err) {
         toast.error(err.response.data.message);
@@ -51,7 +51,7 @@ export default function RegisterPage() {
 
   return (
     <>
-      {token && <Navigate to="/" replace={true} />}
+      {token && <Redirect to="/" replace={true} />}
       <Grid container component="main" className="loginPage">
         <CssBaseline />
         <Grid

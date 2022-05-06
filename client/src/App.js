@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/Navbar/Navbar";
@@ -27,22 +27,26 @@ function App() {
           backgroundColor: "#f9f9f9",
         }}
       >
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          {/* Protected */}
-          <Route path="/" element={<PrivateRoute />}>
-            <Route path="/video/upload" element={<UploadVideoPage />} />
-            <Route
-              path="/subscriptions"
-              element={<SubscriptionPage userData={userData} />}
-            />
-          </Route>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
 
-          <Route path="/video/:videoId" element={<DetailVideoPage />} />
-          <Route path="/trendingVideos" element={<TrendingVideoPage />} />
-        </Routes>
+          {/* Private Routes */}
+          <PrivateRoute
+            component={UploadVideoPage}
+            path="/video/upload"
+            exact
+          />
+          <PrivateRoute
+            component={SubscriptionPage}
+            path="/subscriptions"
+            exact
+          />
+
+          <Route path="/video/:videoId" component={DetailVideoPage} />
+          <Route path="/trendingVideos" component={TrendingVideoPage} />
+          <Route path="/" exact component={HomePage} />
+        </Switch>
       </div>
       <ToastContainer />
     </Suspense>
